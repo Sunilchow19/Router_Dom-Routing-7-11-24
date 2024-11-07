@@ -1,0 +1,89 @@
+
+  /*Weather Styling*/
+  /* Container for the entire weather component */
+  .weather-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    color: #333;
+  }
+  
+  /* Title styling */
+  .weather-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #0073e6;
+  }
+  
+  /* Form styling */
+  .weather-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .weather-form input[type="text"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #0073e6;
+    border-radius: 5px;
+  }
+  
+  .weather-form input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #0073e6;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .weather-form input[type="submit"]:hover {
+    background-color: #005bb5;
+  }
+  
+  /* Weather info display styling */
+  .weather-info {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .weather-info img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .weather-info h1 {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  /* Navigation links */
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 15px;
+  }
+  
+  .nav-links a {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .nav-links a:hover {
+    background-color: #0073e6;
+  }
+  
