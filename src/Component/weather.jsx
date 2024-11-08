@@ -13,6 +13,8 @@ function Weather() {
     )
       .then((res) => res.json())
       .then((res) => setObj(res));
+
+    setInp("");
   };
 
   const sty = () => {
@@ -46,7 +48,11 @@ function Weather() {
     <div className="weather-container">
       <h1 className="weather-title">Weather</h1>
       <form className="weather-form" onSubmit={enter}>
-        <input type="text" onChange={(e) => setInp(e.target.value)} value={inp} />
+        <input
+          type="text"
+          onChange={(e) => setInp(e.target.value)}
+          value={inp}
+        />
         <input type="submit" value="Submit" />
       </form>
 
