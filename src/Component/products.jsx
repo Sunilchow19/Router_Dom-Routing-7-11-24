@@ -1,148 +1,123 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
-import "../Styling/product.css"
-import Card from 'react-bootstrap/Card';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import "../Styling/product.css";
+import Card from "react-bootstrap/Card";
 
+function Products() {
+  let [sam, setSam] = useState([]);
+  let [arr, setArr] = useState([]);
 
-function Products(){
+  // let g=useParams()
 
-    let [sam,setSam]=useState([])
-    let [arr,setArr]=useState([])
+  // console.log(g);
 
-    // let g=useParams()
+  useEffect(() => {
+    axios.get("https://fakestoreapi.com/products").then((val) => {
+      // console.log(val.data);
+      setSam(val.data);
+      setArr(val.data);
+    });
+  }, []);
 
-    // console.log(g);
-    
+  let subm = (e) => {
+    e.preventDefault();
 
-    useEffect(()=>{
-        axios.get("https://fakestoreapi.com/products").then((val)=>{
-            // console.log(val.data);
-            setSam(val.data)
-            setArr(val.data)
-        })
-    },[])
+    console.log(e.target.value);
 
+    let newArr = arr.filter((val, ind) => {
+      return val.category == e.target.value;
+    });
 
-    let subm=(e)=>{
-        e.preventDefault()
+    console.log(newArr);
 
-        console.log(e.target[0].value);
+    setSam(newArr);
 
-        let newArr=arr.filter((val,ind)=>{
-            return (
-             
-                val.category==e.target[0].value
+    if (e.target.value == "init") {
+      setSam(arr);
+    }
+  };
 
-            )
-        })
+  let sec_sub = (e) => {
+    // e.preventDefault()
 
-        console.log(newArr);
-        
-
-        setSam(newArr)
-        
+    if (e.target.value == "base") {
+      setSam(arr);
     }
 
+    if (e.target.value == "low") {
+      let freshArr = [...sam];
 
-    let sec_sub=(e)=>{
-        e.preventDefault()
+      freshArr.sort((a, b) => {
+        return a.price - b.price;
+      });
 
-        if(e.target[0].value=="low"){
-
-            let freshArr=[...sam]
-
-            freshArr.sort((a,b)=>{
-   
-            
-            
-            return (a.price-b.price)
-           })
-            
-           setSam(freshArr)
-        }
-        if(e.target[0].value=="high"){
-
-            let freshArr=[...sam]
-            freshArr.sort((a,b)=>{
-     
-              
-              
-              return (b.price-a.price)
-             })
-              
-             setSam(freshArr)
-          }
+      setSam(freshArr);
     }
+    if (e.target.value == "high") {
+      let freshArr = [...sam];
+      freshArr.sort((a, b) => {
+        return b.price - a.price;
+      });
 
+      setSam(freshArr);
+    }
+  };
 
-    let res=sam.map((val,ind)=>{
-        return (
-            <Link to={`/seemore/${val.id}`} key={ind} className="card-link">
-            <div className="card" key={ind}>
-                <Card style={{ width: '18rem' ,border:"2px solid"}}>
+  let res = sam.map((val, ind) => {
+    return (
+      <Link to={`/seemore/${val.id}`} key={ind} className="card-link">
+        <div className="card" key={ind}>
+          <Card style={{ width: "18rem", border: "2px solid" }}>
             <Card.Img variant="top" src={val.image} width={180} />
 
             {/* <img src={val.image} alt="" width={180} /> */}
             <Card.Body>
               <Card.Title>{val.title}</Card.Title>
-              <Card.Text style={{textAlign:"center"}}>
-         Price:{val.price}
+              <Card.Text style={{ textAlign: "center" }}>
+                Price:{val.price}
               </Card.Text>
             </Card.Body>
           </Card>
-            </div>
-           </Link>
+        </div>
+      </Link>
+    );
+  });
 
-            
+  return (
+    <>
+      {console.log(sam)}
+      <h1 style={{ textAlign: "center" }}>My Products</h1>
 
-        )
-    })
+      <form action="">
+        <select name="" id="" onChange={subm}>
+          <option value="init">--Select Category--</option>
+          <option value="men's clothing">Men's Clothing</option>
+          <option value="women's clothing">Women's Clothing</option>
+          <option value="electronics">Electronics</option>
+          <option value="jewelery">Jewellery</option>
+        </select>
+      </form>
 
+      <form action="">
+        <select name="" id="" onChange={sec_sub}>
+          <option value="base">--Sort--</option>
+          <option value="low">Price-Low to High</option>
+          <option value="high">Price-High to Low</option>
+          {/* <option value="A-Z">A-Z</option>
+                <option value="Z-A">Z-A</option> */}
+        </select>
+      </form>
 
-    return(
-        <>
+      <div className="products-container">{res}</div>
 
-{console.log(sam)
-}
-        <h1 style={{textAlign:"center"}}>My Products</h1>
-
-        <form action="" onSubmit={subm}>
-            <select name="" id="">
-                <option value="men's clothing">Men's Clothing</option>
-                <option value="women's clothing">Women's Clothing</option>
-                <option value="electronics">Electronics</option>
-                <option value="jewelery">Jewellery</option>
-
-            </select>
-            <input type="submit" value="Search" />
-
-        </form>
-
-
-        <form action="" onSubmit={sec_sub}>
-            <select name="" id="">
-                <option value="low">Low to High</option>
-                <option value="high">High to Low</option>
-
-            </select>
-
-            <input type="submit" value="Sort" />
-        </form>
-
-        <div className="products-container">
-                {res}
-            </div>
-
-            <div className="nav-links">
-  <Link to="/">Back Home</Link>
-  <Link to="/weather">Weather Info</Link>
-  <Link to="/products">Products</Link>
-</div>
-
-        </>
-    )
+      <div className="nav-links">
+        <Link to="/">Back Home</Link>
+        <Link to="/weather">Weather Info</Link>
+        <Link to="/products">Products</Link>
+      </div>
+    </>
+  );
 }
 
-
-export default Products
+export default Products;
