@@ -23,12 +23,12 @@ function Seemore() {
           <h2 className="product-title">{res.id}</h2>
           <h2 className="product-title">{res.title}</h2>
           <h2 className="product-category">{res.category}</h2>
-          <h2 className="product-price">{res.price}</h2>
+          <h2 className="product-price">Price:{res.price}</h2>
           <h2 className="product-description">{res.description}</h2>
           <img className="product-image" src={res.image} alt={res.title} />
           <h2 className="product-rating">
-            <button className="rating-button">{res.rating.rate}</button>
-            <button className="rating-button">{res.rating.count}</button>
+          Rating:<button className="rating-button">{res.rating.rate}</button>
+          Count:<button className="rating-button">{res.rating.count}</button>
           </h2>
         </div>
       ) : (

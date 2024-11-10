@@ -62,6 +62,33 @@ function Products() {
 
       setSam(freshArr);
     }
+    if (e.target.value == "Rating-Low") {
+      let freshArr = [...sam];
+      freshArr.sort((a, b) => {
+        return a.rating.rate - b.rating.rate;
+      });
+
+      setSam(freshArr);
+    }
+    if (e.target.value == "Rating-High") {
+      let freshArr = [...sam];
+      freshArr.sort((a, b) => {
+        return b.rating.rate - a.rating.rate;
+      });
+
+      setSam(freshArr);
+    }
+    if (e.target.value == "A-Z") {
+      let freshArr = [...sam];
+      freshArr.sort((a, b) => a.title>b.title? 1:-1);
+      setSam(freshArr);
+    }
+  
+    if (e.target.value == "Z-A") {
+      let freshArr = [...sam];
+      freshArr.sort((a, b) => b.title>a.title?1:-1);
+      setSam(freshArr);
+    }
   };
 
   let res = sam.map((val, ind) => {
@@ -74,9 +101,14 @@ function Products() {
             {/* <img src={val.image} alt="" width={180} /> */}
             <Card.Body>
               <Card.Title>{val.title}</Card.Title>
-              <Card.Text style={{ textAlign: "center" }}>
+             <div className="text">
+             <Card.Text style={{ textAlign: "center" }}>
                 Price:{val.price}
               </Card.Text>
+              <Card.Text style={{ textAlign: "center",marginLeft:"5px" }}>
+                Rating:{val.rating.rate}
+              </Card.Text>
+             </div>
             </Card.Body>
           </Card>
         </div>
@@ -104,8 +136,10 @@ function Products() {
           <option value="base">--Sort--</option>
           <option value="low">Price-Low to High</option>
           <option value="high">Price-High to Low</option>
-          {/* <option value="A-Z">A-Z</option>
-                <option value="Z-A">Z-A</option> */}
+          <option value="Rating-Low">Rating-Low to High</option>
+          <option value="Rating-High">Rating-High to Low</option>
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
         </select>
       </form>
 

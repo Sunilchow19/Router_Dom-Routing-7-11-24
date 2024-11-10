@@ -115,3 +115,8 @@ h1 {
   .nav-links a:hover {
     background-color: #0073e6;
   }
+
+  .text{
+    display: flex;
+    justify-content: center;
+  }
